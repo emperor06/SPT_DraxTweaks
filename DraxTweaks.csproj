@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>1.1.0</Version>
+    <AssemblyName>DraxTweaks</AssemblyName>
+    <RootNamespace>DraxTweaks</RootNamespace>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+    <DebugType>None</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateRuntimeConfigurationFiles>false</GenerateRuntimeConfigurationFiles>
+    <CreatePackageOnBuild>false</CreatePackageOnBuild>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <OutputPath>output\SPT\user\mods\$(AssemblyName)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.4.2" />
+    <PackageReference Include="SPTarkov.Common" Version="4.0.2" />
+    <PackageReference Include="SPTarkov.DI" Version="4.0.2" />
+    <PackageReference Include="SPTarkov.Server.Core" Version="4.0.2" />
+	<None Include="config\**\*" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" BeforeTargets="PostBuildEvent">
+    <Exec Command="del $(TargetDir)$(TargetName).deps.json" />
+  </Target>
+
+  <Target Name="ZipRelease" AfterTargets="Build">
+    <Exec Command="powershell -Command New-Item -ItemType Directory -Force -Path 'dist'" />
+    <Exec Command="powershell -Command Compress-Archive -Path output\* -DestinationPath dist\$(AssemblyName)-$(Version).zip -Force" />
+  </Target>
+</Project>
