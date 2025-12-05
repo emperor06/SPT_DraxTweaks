@@ -1,0 +1,12 @@
+.vs/
+.vscode/
+.editorconfig
+bin/
+obj/
+output/
+dist/
+data/
+
+# Ignore old config files and directories
+config.old/
+config.powders/
