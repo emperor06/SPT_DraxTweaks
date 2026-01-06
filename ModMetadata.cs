@@ -13,7 +13,7 @@ public record ModMetadata : AbstractModMetadata
     public override string Name { get; init; }                 = "DraxTweaks";
     public override string Author { get; init; }               = "Drax";
     public override List<string>? Contributors { get; init; }  = ["Megan Rain"];
-    public override Version Version { get; init; }             = new("1.1.0");
+    public override Version Version { get; init; }             = new("1.2.0");
     public override Range SptVersion { get; init; }            = new("~4.0.0");
     public override string License { get; init; }              = "IV";
     public override List<string>? Incompatibilities { get; init; }
